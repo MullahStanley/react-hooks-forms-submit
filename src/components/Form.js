@@ -11,9 +11,22 @@ function Form(props) {
   function handleLastNameChange(event) {
     setLastName(event.target.value);
   }
+  function handleSubmit(e){
+    e.preventDefault()
+       if (firstName.length > 0) {
+        const formData = { firstName: firstName, lastName: lastName };
+        const dataArray = [...submittedData, formData];
+        setSubmittedData(dataArray);
+        setFirstName("");
+        setLastName("");
+        setErrors([]);
+      } else {
+        setErrors(["First name is required!"]);
+      }
+    }
 
   return (
-    <form>
+    <form onSubmit={handleSubmit}>
       <input type="text" onChange={handleFirstNameChange} value={firstName} />
       <input type="text" onChange={handleLastNameChange} value={lastName} />
       <button type="submit">Submit</button>
